@@ -28,7 +28,13 @@ ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 
 
 class YTDLSource(discord.PCMVolumeTransformer):
-    def __init__(self, source, *, data, volume=0.5):
+
+    FFMPEG_OPTIONS = {
+        'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
+        'options': '-vn',
+    }
+
+    def __init__(self, source, data, volume=0.5):
         super().__init__(source, volume)
 
         self.data = data
@@ -37,7 +43,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.url = data.get('url')
 
     @classmethod
-    async def from_url(cls, url, *, loop=None, stream=False):
+    async def from_url(cls, url, *, loop=None, stream=True):
         loop = loop or asyncio.get_event_loop()
         data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
 
@@ -46,4 +52,5 @@ class YTDLSource(discord.PCMVolumeTransformer):
             data = data['entries'][0]
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(discord.FFmpegPCMAudio(executable=filename, **ffmpeg_options), data=data)
+        return cls(discord.FFmpegPCMAudio(source=filename, executable=r"C:\ffmpeg\bin\ffmpeg.exe", **cls.FFMPEG_OPTIONS)
+                   , data=data)
