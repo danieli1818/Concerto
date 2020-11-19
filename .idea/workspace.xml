@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab39cfca-a1ca-428c-b634-948eba40f4cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/youtube-QYh6mYIJG2Y-Ariana_Grande_-_7_rings.webm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/youtube_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/youtube_utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,6 +93,13 @@
       <option name="presentableId" value="Default" />
       <updated>1581612155046</updated>
     </task>
+    <task id="LOCAL‎00001" summary="Fixed Bugs And Started Queue Per Guild.">
+      <created>1605724322785</created>
+      <option name="number" value="LOCAL‎00001" />
+      <option name="presentableId" value="LOCAL‎00001" />
+      <updated>1605724322786</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,5 +117,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Fixed Bugs And Started Queue Per Guild." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bugs And Started Queue Per Guild." />
   </component>
 </project>

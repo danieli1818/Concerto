@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 
 from youtube_utils import YTDLSource
 
+import asyncio
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 BOT_PREFIX = os.getenv('COMMAND_PREFIX')
@@ -81,16 +83,29 @@ class PotterCord:
 
         async def play_next_song(e=None):
             print("yay")
+            print(e)
             if e:
                 print('Player error: %s' % e)
                 return
             if not self.music_queues[server.id]:
+                print("empty music queue!")
                 return
             async with ctx.typing():
-                player = await YTDLSource.from_url(self.music_queues[server.id].pop(0), loop=self.bot.loop)
+                next_uri = self.music_queues[server.id].pop(0)
+                player = await YTDLSource.from_url(next_uri, loop=self.bot.loop)
                 # after=lambda e: print('Player error: %s' % e) if e else await play_next_song()
-                voice.play(player, after=await play_next_song())
-            await ctx.send('Now playing: {0}\nhttps://{1}'.format(player.title, uri))
+                print("before playing song")
+                voice.play(player, after=after_function)
+                print("after playing song")
+            await ctx.send('Now playing: {0}\nhttps://{1}'.format(player.title, next_uri))
+
+        def after_function(error=None):
+            fut = asyncio.run_coroutine_threadsafe(play_next_song(), self.bot.loop)
+            try:
+                fut.result()
+            except:
+                # an error happened sending the message
+                pass
 
         print(uri)
         server = ctx.message.guild
@@ -103,8 +118,6 @@ class PotterCord:
         if not voice_client.is_playing():
             print("check")
             await play_next_song()
-
-
 
     async def join_voice_channel(self, channel):
         server = channel.guild
