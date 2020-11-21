@@ -61,6 +61,26 @@ class PotterCord:
                         "{0.mention} Didn't find song {1}!!!".format(author, song))
             print(args)
 
+        @self.bot.command(name='pause')
+        async def pause(ctx, *args):
+            server = ctx.message.guild
+            voice_client = server.voice_client
+            if voice_client.is_playing():
+                voice_client.pause()
+                await ctx.send("Successfully paused the song!")
+            else:
+                await ctx.send("There is no song playing!")
+
+        @self.bot.command(name='resume')
+        async def resume(ctx, *args):
+            server = ctx.message.guild
+            voice_client = server.voice_client
+            if voice_client.is_paused():
+                voice_client.resume()
+                await ctx.send("Successfully resumed the song!")
+            else:
+                await ctx.send("There is no paused song!")
+
     async def play_youtube_song_by_uri(self, uri, channel, ctx):
         if channel is None:
             return False
